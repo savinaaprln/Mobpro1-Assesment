@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import org.d3if3120.mobpro1assesment.navigation.SetupNavGraph
-import org.d3if3120.mobpro1assesment.ui.screen.MainScreen
 import org.d3if3120.mobpro1assesment.ui.theme.Mobpro1AssesmentTheme
 
 class MainActivity : ComponentActivity() {
