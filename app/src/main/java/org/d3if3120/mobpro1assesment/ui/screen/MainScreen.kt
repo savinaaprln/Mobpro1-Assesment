@@ -28,6 +28,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -85,6 +86,8 @@ fun ScreenContent(modifier: Modifier ){
         stringResource(id = R.string.fharenheit)
     )
     var pilihanSuhu by rememberSaveable { mutableStateOf(radioOptions[0])}
+    var hasil by rememberSaveable { mutableDoubleStateOf(0.0) }
+    var suhuEmpty by rememberSaveable { mutableStateOf(false) }
 
     Column (
         modifier = modifier
@@ -94,10 +97,10 @@ fun ScreenContent(modifier: Modifier ){
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-    Text(text = stringResource(id = R.string.app_intro),
-        style = MaterialTheme.typography.bodyLarge,
-        modifier = Modifier.fillMaxWidth()
-    )
+        Text(text = stringResource(id = R.string.app_intro),
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.fillMaxWidth()
+        )
         OutlinedTextField(
             value =celcius ,
             onValueChange ={celcius = it},
@@ -131,11 +134,20 @@ fun ScreenContent(modifier: Modifier ){
 
             }
         }
-        Button(onClick = { /*TODO*/ },
+        Button(onClick = {
+            suhuEmpty = (celcius == "")
+            if (suhuEmpty)return@Button
+
+            hasil = hitungSuhu(celcius.toDouble(), pilihanSuhu == radioOptions[1]).toDouble()
+        },
             modifier = Modifier.padding(top = 8.dp),
             contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
         ) {
             Text(text = stringResource(id = R.string.hitung))
+        }
+
+        if (hasil != 0.0){
+            Text(text = stringResource(id = R.string.hasil, hasil))
         }
 
     }
@@ -153,6 +165,15 @@ fun SuhuOption(label: String, isSelected: Boolean, modifier: Modifier) {
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(start = 8.dp)
         )
+    }
+}
+
+
+fun hitungSuhu(celcius: Double, kategori: Boolean): Double {
+    return if (!kategori) {
+        celcius + 273.15 // konversi Celcius ke Kelvin
+    } else {
+        celcius * 9 / 5 + 32 // konversi Celcius ke Fahrenheit
     }
 }
 
