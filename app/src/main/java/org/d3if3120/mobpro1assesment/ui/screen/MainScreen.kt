@@ -1,5 +1,7 @@
 package org.d3if3120.mobpro1assesment.ui.screen
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.ImeAction
@@ -88,6 +91,8 @@ fun ScreenContent(modifier: Modifier ){
     var pilihanSuhu by rememberSaveable { mutableStateOf(radioOptions[0])}
     var hasil by rememberSaveable { mutableDoubleStateOf(0.0) }
     var suhuEmpty by rememberSaveable { mutableStateOf(false) }
+
+    val context = LocalContext.current
 
     Column (
         modifier = modifier
@@ -148,6 +153,21 @@ fun ScreenContent(modifier: Modifier ){
 
         if (hasil != 0.0){
             Text(text = stringResource(id = R.string.hasil, hasil))
+
+            Button(
+                onClick = {
+                          shareData(
+                              context = context,
+                              message = context.getString(R.string.bagikan_template,
+                                  celcius, pilihanSuhu, hasil
+                              )
+                          )
+                },
+                modifier = Modifier.padding(top = 8.dp),
+                contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
+                ){
+                    Text(text = stringResource(id = R.string.bagikan))
+            }
         }
 
     }
@@ -174,6 +194,16 @@ fun hitungSuhu(celcius: Double, kategori: Boolean): Double {
         celcius + 273.15 // konversi Celcius ke Kelvin
     } else {
         celcius * 9 / 5 + 32 // konversi Celcius ke Fahrenheit
+    }
+}
+
+private fun shareData(context: Context, message: String) {
+    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, message)
+    }
+    if (shareIntent.resolveActivity(context.packageManager) != null) {
+        context.startActivity(shareIntent)
     }
 }
 

@@ -8,4 +8,17 @@
     <string name="hitung">Hitung</string>
     <string name="hasil">Hasil Konversi %1$.2f</string>
     <string name="kembali">Kembali</string>
+    <string name="biodata">
+        Nama: Savina Apriliani Hermawan\n
+        NIM: 67063120\n
+        Institut: Telkom University\n
+        Fakultas: Ilmu Terapan\n
+        Jurusan: D3 Rekayasa perangkat Lunak Aplikasi
+    </string>
+    <string name="pic">Foto Developer</string>
+    <string name="bagikan">Bagikan</string>
+    <string name="bagikan_template">
+        dari celcius: %1$s menjadi: %2$s\n
+        hasil dari konversi: %3$.2f
+    </string>
 </resources>
