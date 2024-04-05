@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Mobpro1Assesment</string>
     <string name="tentang_aplikasi">Tentang Aplikasi</string>
+    <string name="app_intro">aplikasi konversi suhu adalah untuk mengkonfersi suhu ke reamur atau ke farenheit</string>
+    <string name="celcius_label">Celcius</string>
+    <string name="kelvin">Kelvin</string>
+    <string name="fharenheit">Fharenheit</string>
+    <string name="hitung">Hitung</string>
+    <string name="hasil">Hasil Konversi %1$.2f</string>
 </resources>
