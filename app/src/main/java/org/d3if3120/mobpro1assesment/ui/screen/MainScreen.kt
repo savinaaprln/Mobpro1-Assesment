@@ -65,7 +65,7 @@ fun MainScreen(navController: NavHostController) {
                         navController.navigate(Screen.About.route)
                     }) {
                         Icon(imageVector = Icons.Filled.AccountCircle,
-                            contentDescription = stringResource(id = R.string.tentang_aplikasi),
+                            contentDescription = stringResource(id = R.string.about_me),
                             tint = MaterialTheme.colorScheme.primary
                         )
                     }
